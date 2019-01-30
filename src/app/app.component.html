@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Aplicativo Financeiro</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+<br>
+
+<div class="container-fluid">
+
+    <h1>{{titulo}}</h1>
+
+    <div class="alert alert-danger" role="alert" *ngIf="clienteForm.submitted && clienteForm.value.nome == ''">
+      O Campo Nome do Cliente é Obrigatório
+    </div>
+
+    <div class="alert alert-success" role="alert" *ngIf="isInclusao">
+        INCLUSÃO EFETUADA COM SUCESSO
+      </div>
+
+  <div class="alert alert-danger" role="alert" *ngIf="clienteForm.submitted && clienteForm.value.limite == ''">
+        O Campo Limite de Crédito é Obrigatório
+  </div>
+
+  <div class="alert alert-danger" role="alert" *ngIf="clienteForm.submitted && clienteForm.value.risco == ''">
+      O Campo Risco é Obrigatório
+  </div>
+
+    <form #clienteForm="ngForm" (ngSubmit)="salvar(clienteForm)">
+        <div class="form-group">
+          <label>Nome Cliente</label>
+          <input type="text" class="form-control" name="nome"  placeholder="Nome do Cliente" ngModel required>
+         
+        </div>
+        <div class="form-group">
+          <label>Limite de Crédito</label>
+          <input type="text" class="form-control" required name="limite" placeholder="Limite de Crédito" ngModel>
+        </div>
+        <div class="form-group">
+            <label>Risco</label>
+             <select class="custom-select" #t (change)="calcularTaxa(t.value)" name="risco" ngModel required>              
+                <option *ngFor="let risco of riscos" [value]="risco">{{risco}}</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary ">Enviar</button>
+      </form>
+  </div>
+
+
